@@ -25,7 +25,7 @@ class ScanController extends GetxController {
   var isCameraInitialized = false.obs;
   var cameraCount = 0;
 
-  var x, y, w, h = 0.0;
+  var x = 0.0, y = 0.0, w = 0.0, h = 0.0;
   var label = "";
 
   initCamera() async {
@@ -56,8 +56,8 @@ class ScanController extends GetxController {
 
   initTFLite() async {
     await Tflite.loadModel(
-      model: "assets/mobilenet_v1_1.0_224.tflite",
-      labels: "assets/mobilenet_v1_1.0_224.txt",
+      model: "assets/ssd_mobilenet.tflite",
+      labels: "assets/ssd_mobilenet.txt",
       isAsset: true,
       numThreads: 1,
       useGpuDelegate: false,
@@ -65,20 +65,20 @@ class ScanController extends GetxController {
   }
 
   objectDetector(CameraImage image) async {
-    var detector = await Tflite.runModelOnFrame(bytesList: image.planes.map((e){
+    var detector = await Tflite.detectObjectOnFrame(bytesList: image.planes.map((e){
       return e.bytes;
       }).toList(),
+      model: "SSDMobileNet",
       asynch: true,
       imageHeight: image.height,
       imageWidth: image.width,
       imageMean: 127.5,
       imageStd: 127.5,
-      numResults: 1,
       rotation: 90,
       threshold: 0.4,
     );
 
-    if (detector != null) {
+    if (detector != null && detector.isNotEmpty) {
       var ourDetectedObject = detector.first;
       if (ourDetectedObject['confidenceInClass'] * 100 > 45) {
         label = ourDetectedObject['detectedClass'].toString();

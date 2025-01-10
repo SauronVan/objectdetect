@@ -1,6 +1,22 @@
-# ai_object_detector
+# Flutter Realtime Object Detection 
 
-A new Flutter project.
+A mobile app that detects common objects in realtime via rear camera smartphone
+
+Implemented from [Flutter AI | Flutter Realtime Object Detection | Flutter Deep Learning | Flutter TensorFlow | TFlite](https://www.youtube.com/playlist?list=PL-7EgTNrNHKYrQZCdyB2u9U6GZLmLusyW) by Baaba Devs
+
+## Maintainer: 
+<span style="font-size: 18px;">[bluelul](https://bluelul.com)</span>
+
+If you find this repository helpful, please give it a star ⭐ !
+
+## Note
+- JDK 17
+- Graddle > 8
+- Android SDK ~34
+
+## Demo
+
+![Demo](assets/demo.png "Demo")
 
 ## Getting Started
 
